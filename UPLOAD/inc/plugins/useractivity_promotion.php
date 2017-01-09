@@ -103,7 +103,7 @@ function useractivity_promotion_formcontainer_output_row(&$args)
 
 function useractivity_promotion_commit()
 {
-	global $db, $mybb, $pid, $update_promotion, $pid;
+	global $db, $mybb, $pid, $update_promotion;
 
 	is_array($update_promotion) or $update_promotion = array();
 
@@ -120,27 +120,27 @@ function useractivity_promotion_task(&$args)
 {
 	if(in_array('useractivity', explode(',', $args['promotion']['requirements'])) && (int)$args['promotion']['useractivity'] >= 0 && !empty($args['promotion']['useractivitytype']))
 	{
-		switch($args['promotion']['onlinetype'])
+		switch($args['promotion']['useractivitytype'])
 		{
 			case "hours":
-				$useractivity = $args['promotion']['online']*60*60;
+				$useractivity = $args['promotion']['useractivity']*60*60;
 				break;
 			case "days":
-				$useractivity = $args['promotion']['online']*60*60*24;
+				$useractivity = $args['promotion']['useractivity']*60*60*24;
 				break;
 			case "weeks":
-				$useractivity = $args['promotion']['online']*60*60*24*7;
+				$useractivity = $args['promotion']['useractivity']*60*60*24*7;
 				break;
 			case "months":
-				$useractivity = $args['promotion']['online']*60*60*24*30;
+				$useractivity = $args['promotion']['useractivity']*60*60*24*30;
 				break;
 			case "years":
-				$useractivity = $args['promotion']['online']*60*60*24*365;
+				$useractivity = $args['promotion']['useractivity']*60*60*24*365;
 				break;
 			default:
-				$useractivity = $args['promotion']['online']*60*60*24;
+				$useractivity = $args['promotion']['useractivity']*60*60*24;
 		}
-		$sql_where .= "{$and}lastpost <= '".(TIME_NOW-$useractivity)."'";
+		$args['sql_where'] .= "{$args['and']}lastpost <= '".(TIME_NOW-$useractivity)."'";
 		$args['and'] = ' AND ';
 	}
 }
