@@ -22,14 +22,14 @@ function useractivity_promotion_info()
 	$lang->load('config_useractivity');
 	
 	return array(
-		"name"			=> $db->escape_string($lang->useractivity_info_title),
+		"name"	=> $db->escape_string($lang->useractivity_info_title),
 		"description"	=> $db->escape_string($lang->useractivity_info_desc),
-		"website"		=> "https://github.com/SvePu/User-Activity-Promotion",
-		"author"		=> "SvePu",
+		"website"	=> "https://github.com/SvePu/User-Activity-Promotion",
+		"author"	=> "SvePu",
 		"authorsite"	=> "https://community.mybb.com/user-91011.html",
-		"version"		=> "1.0",
-		"codename"		=> "useractivitypromotion",
-		"compatibility" => "18*"
+		"version"	=> "1.0",
+		"codename"	=> "useractivitypromotion",
+		"compatibility"	=> "18*"
 	);
 }
 
