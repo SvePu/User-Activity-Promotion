@@ -65,6 +65,12 @@ function useractivity_promotion_uninstall()
 	
 	if($db->field_exists("useractivity", "promotions"))
 	{
+		$query = $db->simple_select("promotions", "pid", "useractivity>'0'");
+		$pid = $db->fetch_array($query);
+		if(!empty($pid['pid']))
+		{
+			$db->delete_query("promotions", "pid='{$pid['pid']}'");
+		}
 		$db->drop_column("promotions", "useractivity");
 	}
 	if($db->field_exists("useractivitytype", "promotions"))
