@@ -1,5 +1,5 @@
 <?php
-// User Activity Promotion v1.0 Main Plugin File
+// User Activity Promotion v1.1 Main Plugin File
 
 // Disallow direct access to this file for security reasons
 if(!defined("IN_MYBB"))
@@ -22,19 +22,19 @@ function useractivity_promotion_info()
 	$lang->load('config_useractivity');
 	
 	return array(
-		"name"	=> $db->escape_string($lang->useractivity_info_title),
+		"name"			=> $db->escape_string($lang->useractivity_info_title),
 		"description"	=> $db->escape_string($lang->useractivity_info_desc),
-		"website"	=> "https://github.com/SvePu/User-Activity-Promotion",
-		"author"	=> "SvePu",
+		"website"		=> "https://github.com/SvePu/User-Activity-Promotion",
+		"author"		=> "SvePu",
 		"authorsite"	=> "https://community.mybb.com/user-91011.html",
-		"version"	=> "1.0",
-		"codename"	=> "useractivitypromotion",
-		"compatibility"	=> "18*"
+		"version"		=> "1.1",
+		"codename"		=> "useractivitypromotion",
+		"compatibility" => "18*"
 	);
 }
 
 
-function useractivity_promotion_activate()
+function useractivity_promotion_install()
 {
 	global $mybb, $db;
 
@@ -48,8 +48,18 @@ function useractivity_promotion_activate()
 	}
 }
 
+function useractivity_promotion_is_installed()
+{
+    global $db;
+    if($db->field_exists("useractivity", "promotions"))
+    {
+        return true;
+    }
+    return false;
+}
 
-function useractivity_promotion_deactivate()
+
+function useractivity_promotion_uninstall()
 {
 	global $mybb, $db;
 	
@@ -62,6 +72,17 @@ function useractivity_promotion_deactivate()
 		$db->drop_column("promotions", "useractivitytype");
 	}
 }
+
+function useractivity_promotion_activate()
+{
+
+}
+
+function useractivity_promotion_deactivate()
+{
+	useractivity_promotion_uninstall();
+}
+
 
 function useractivity_promotion_formcontainer_output_row(&$args)
 {
